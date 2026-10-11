@@ -16,6 +16,7 @@ def main():
     result = graph.invoke(initial_state)
     print(f"DuckDuckGo results: {len(result['duckduckgo_results'])}")
     print(f"Wikipedia results: {len(result['wikipedia_results'])}")
+    print(f"\nReport:\n{result['report']}")
 
 if __name__ == "__main__":
     main()
