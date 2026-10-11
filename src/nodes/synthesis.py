@@ -8,7 +8,7 @@ from langchain_core.prompts import PromptTemplate
 
 load_dotenv()
 
-llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0, max_tokens=250, request_timeout=120, streaming=True)
+llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0, max_tokens=250, request_timeout=120)
 
 def synthesis(state: ResearchState):
     duckduckgo_results = state["duckduckgo_results"]
@@ -28,6 +28,9 @@ def synthesis(state: ResearchState):
         wikipedia_results=wikipedia_results,
         query=query
     )
-    response = llm.invoke(filled_prompt)
-
-    return {"report": response.content}
+    try:
+        response = llm.invoke(filled_prompt)
+        return {"report": response.content}
+    except Exception as e:
+        print(f"Error occurred while synthesizing report: {e}")
+        return {"report": "Error occurred while synthesizing report."}
