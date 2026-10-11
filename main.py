@@ -1,10 +1,15 @@
+
+import argparse
+
 from dotenv import load_dotenv
 from src.graph import graph
-
 load_dotenv()
 
 def main():
-    query = "Python programming"
+    parser = argparse.ArgumentParser(description="Research Assistant")
+    parser.add_argument("--query", type=str, default="Python programming", help="Research query")
+    args = parser.parse_args()
+    query = args.query
     initial_state = {
         "query": query,
         "duckduckgo_results": [],
