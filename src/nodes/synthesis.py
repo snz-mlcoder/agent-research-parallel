@@ -15,6 +15,9 @@ def synthesis(state: ResearchState):
     wikipedia_results = state["wikipedia_results"]
     query = state["query"]
 
+    if not duckduckgo_results and not wikipedia_results:
+        return {"report": f"No information could be found for '{query}' after multiple search attempts."}
+    
     prompt = PromptTemplate(
         input_variables=["duckduckgo_results", "wikipedia_results", "query"],
         template="You are a research assistant. Using ONLY the information provided below, "
